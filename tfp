@@ -6,6 +6,7 @@ for arg do
   [[ "$arg" =~ $pattern_arg ]] && pattern=${arg:9} && continue
   set -- "$@" "$arg"
 done
+
 if [ -z $pattern ]
 then
   >&2 echo "No pattern provided, running: terraform $@"
