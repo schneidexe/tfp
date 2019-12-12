@@ -1,0 +1,39 @@
+#!/bin/bash
+
+pattern_arg='-pattern=[^ ]+'
+for arg do
+  shift
+  [[ "$arg" =~ $pattern_arg ]] && pattern=${arg:9} && continue
+  set -- "$@" "$arg"
+done
+if [ -z $pattern ]
+then
+  >&2 echo "No pattern provided, running: terraform $@"
+  terraform $@
+  exit
+fi
+
+>&2 echo "Matching pattern '$pattern' against state..."
+state=$(terraform state list)
+for i in $state
+do
+  if [[ $i =~ $pattern ]]
+  then
+    >&2 echo "Match '$i' found"
+    set -- "$@" "-target=$i"
+  fi
+done
+
+>&2 echo "Matching pattern '$pattern' against plan..."
+plan=$(terraform plan -no-color | egrep '^  # ' | egrep -o '[^ ]+\.[^ ]+')
+for i in $plan
+do
+  if [[ $i =~ $pattern ]]
+  then
+    >&2 echo "Match '$i' found"
+    set -- "$@" "-target=$i"
+  fi
+done
+
+>&2 echo "Pattern matching complete, running: terraform $@"
+terraform $@
