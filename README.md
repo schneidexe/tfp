@@ -1,6 +1,6 @@
 # tfp
 
-Use `terraform` with pattern matching on targets.
+Use `terraform` with regex patterns for targets.
 
 ## Usage
 
