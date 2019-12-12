@@ -1,6 +1,7 @@
 # tfp
 
-Use `terraform` with regex patterns for targets.
+Use `terraform` with regex patterns for targets. 
+It tries to compensate [hashicorp/terraform#2182].
 
 ## Usage
 
