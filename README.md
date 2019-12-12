@@ -1,6 +1,6 @@
 # tfp
 
-`tfp` allows you to use regex patterns for `terraform` targets. It's a try to address the issue https://github.com/hashicorp/terraform/issues/2182.
+`tfp` is a small wrapper allows you to use regex patterns for `terraform` targets. It's a try to address the issue https://github.com/hashicorp/terraform/issues/2182.
 
 ## Usage
 
